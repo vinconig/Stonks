@@ -54,6 +54,21 @@ def assign_bucket(value, quantiles):
         return "high"
     else:
         return "medium"
+    
+def assign_combined_bucket(row):
+    v = row["vol_bucket"]
+    l = row["liq_bucket"]
+
+    if v == "high" and l == "high":
+        return "High Volatility / High Liquidity"
+    elif v == "high" and l == "low":
+        return "High Volatility / Low Liquidity"
+    elif v == "low" and l == "high":
+        return "Low Volatility / High Liquidity"
+    elif v == "low" and l == "low":
+        return "Low Volatility / Low Liquidity"
+    else:
+        return "medium_or_uncategorized"   # optional line
 
 
 def analyze_stocks(df):
